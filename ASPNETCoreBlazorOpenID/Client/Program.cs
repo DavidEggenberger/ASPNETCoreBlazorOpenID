@@ -31,6 +31,7 @@ namespace ASPNETCoreBlazorOpenID.Client
                 options.ProviderOptions.PostLogoutRedirectUri = "https://localhost:44342/authentication/logout-callback";
                 options.ProviderOptions.ClientId = "interactive.public";
                 options.ProviderOptions.ResponseType = "code";
+                options.ProviderOptions.DefaultScopes.Add("api");
             });
 
             await builder.Build().RunAsync();

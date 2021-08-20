@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ASPNETCoreBlazorOpenID.Server.Controllers
 {
-    [Authorize]
+    [Authorize("api")]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
