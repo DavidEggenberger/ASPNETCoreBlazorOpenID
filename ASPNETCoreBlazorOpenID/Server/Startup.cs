@@ -29,8 +29,7 @@ namespace ASPNETCoreBlazorOpenID.Server
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(configureOptions =>
                 {
-                    
-                    configureOptions.Authority = "";
+                    configureOptions.Authority = "https://accounts.google.com/";
                 });
         }
 

@@ -24,7 +24,14 @@ namespace ASPNETCoreBlazorOpenID.Client
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("ASPNETCoreBlazorOpenID.ServerAPI"));
 
-            builder.Services.AddApiAuthorization();
+            builder.Services.AddOidcAuthentication(options =>
+            {
+                options.ProviderOptions.Authority = "https://accounts.google.com/";
+                options.ProviderOptions.RedirectUri = "https://localhost:44342/authentication/login-callback";
+                options.ProviderOptions.PostLogoutRedirectUri = "https://localhost:44342/authentication/logout-callback";
+                options.ProviderOptions.ClientId = "";
+                options.ProviderOptions.ResponseType = "id_token";
+            });
 
             await builder.Build().RunAsync();
         }
