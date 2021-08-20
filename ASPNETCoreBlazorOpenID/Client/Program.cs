@@ -26,11 +26,11 @@ namespace ASPNETCoreBlazorOpenID.Client
 
             builder.Services.AddOidcAuthentication(options =>
             {
-                options.ProviderOptions.Authority = "https://accounts.google.com/";
+                options.ProviderOptions.Authority = "https://demo.identityserver.io/";
                 options.ProviderOptions.RedirectUri = "https://localhost:44342/authentication/login-callback";
                 options.ProviderOptions.PostLogoutRedirectUri = "https://localhost:44342/authentication/logout-callback";
-                options.ProviderOptions.ClientId = "";
-                options.ProviderOptions.ResponseType = "id_token";
+                options.ProviderOptions.ClientId = "interactive.public";
+                options.ProviderOptions.ResponseType = "code";
             });
 
             await builder.Build().RunAsync();

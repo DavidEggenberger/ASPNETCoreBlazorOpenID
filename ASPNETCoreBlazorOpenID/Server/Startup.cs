@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System.Linq;
 
 namespace ASPNETCoreBlazorOpenID.Server
@@ -29,7 +30,12 @@ namespace ASPNETCoreBlazorOpenID.Server
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(configureOptions =>
                 {
-                    configureOptions.Authority = "https://accounts.google.com/";
+                    configureOptions.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = "name",
+                        ValidateAudience = false
+                    };
+                    configureOptions.Authority = "https://demo.identityserver.io/";
                 });
         }
 

@@ -1,4 +1,8 @@
 ﻿@page "/counter"
+@using Microsoft.AspNetCore.Authorization
+@using System.Security.Claims
+
+@attribute [Authorize]
 
 <h1>Counter</h1>
 
@@ -6,11 +10,30 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+<div class="alert alert-info">
+    @if(User is not null)
+    {
+        foreach (var claim in User.Claims)
+        {
+            <p>@claim.Type  @claim.Value</p>
+        }
+    }
+</div>
+
 @code {
     private int currentCount = 0;
 
     private void IncrementCount()
     {
         currentCount++;
+    }
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationState { get; set; }
+    public ClaimsPrincipal User { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        User = (await AuthenticationState).User;
     }
 }
